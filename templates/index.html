@@ -13,22 +13,65 @@
       margin: 0;
       padding: 0;
       display: flex;
-      justify-content: center;
-      align-items: flex-start;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
     }
 
-    h1 {
-      background: linear-gradient(to bottom, #121212, #000);
-      padding: 20px;
-      text-shadow: 1px 1px 3px #000;
-      border-bottom: 2px solid #000;
-      font-size: 28px;
+    .title-box {
+      margin-top: 80px;
+      background: linear-gradient(to bottom, #0d0d0d, #000);
+      display: inline-block;
+      padding: 15px 25px;
+      border: 2px groove #111;
+      box-shadow: 0 0 25px #000;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .ads-container {
+      display: flex;
+      justify-content: space-between;
       width: 100%;
+      padding: 20px;
+      position: fixed;
+      top: 60px;
+      left: 0;
+      right: 0;
+      pointer-events: none;
+    }
+
+    .ad {
+      background: #111;
+      border: 3px solid #444;
+      box-shadow: 0 0 30px #000;
+      pointer-events: all;
+      cursor: pointer;
+      padding: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: scale(0.8);
+      transform-origin: top center;
+    }
+
+    .ad img {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 90vh;
+      display: block;
+    }
+
+    .content {
+      margin-top: 40px;
       text-align: center;
+      width: 400px;
+      flex: 1;
     }
 
     form {
-      margin-top: 40px;
       background: linear-gradient(to bottom, #0d0d0d, #000);
       display: inline-block;
       padding: 20px;
@@ -67,7 +110,7 @@
       text-decoration: underline;
     }
 
-    p {
+    p.link-box {
       margin-top: 20px;
       font-size: 16px;
       background: #000;
@@ -77,70 +120,49 @@
       box-shadow: inset 0 0 8px #000;
     }
 
-    /* Ads container */
-    .ads-container {
-      display: flex;
-      justify-content: space-between;
+    footer {
       width: 100%;
-      padding: 20px;
-      position: fixed;
-      top: 60px;
-      left: 0;
-      right: 0;
-      pointer-events: none;
-    }
-
-    .ad {
       background: #111;
-      border: 3px solid #444;
-      box-shadow: 0 0 30px #000;
-      pointer-events: all;
-      cursor: pointer;
-      padding: 0;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transform: scale(0.8); /* scale down to 80% */
-      transform-origin: top center;
-    }
-
-    .ad img {
-      width: auto;
-      height: auto;
-      max-width: 100%;
-      max-height: 90vh;
-      display: block;
-    }
-
-    .content {
-      margin-top: 100px;
-      text-align: center;
-      width: 400px;
+      border-top: 1px solid #222;
+      padding: 10px 0;
+      font-size: 12px;
+      color: #777;
+      text-shadow: none;
     }
   </style>
 </head>
 <body>
+
+  <div class="title-box">very safe url shortner</div>
+
   <div class="ads-container">
-    <button class="ad drug" onclick="alert('Definitely NOT safe drugs!')">
+    <button class="ad drug"
+            onclick="window.location.href='https://www.youtube.com/watch?v=54mtOwaqlsU'">
       <img src="{{ url_for('static', filename='ad.png') }}" alt="Drug Ad">
     </button>
-    <button class="ad crypto" onclick="alert('Invest all your money NOW!')">
-      <img src="{{ url_for('static', filename='ad.png') }}" alt="Crypto Ad">
+    <button class="ad crypto"
+            onclick="window.location.href='https://www.youtube.com/watch?v=cdbn5ZCELi8&t=11s'">
+      <img src="{{ url_for('static', filename='ad2.png') }}" alt="Crypto Ad">
     </button>
   </div>
 
   <div class="content">
-    <h1>very safe url shortner</h1>
     <form action="/" method="post">
       <input type="text" name="url" placeholder="google.com" required>
       <button type="submit">make shady</button>
     </form>
     {% if short_url %}
       <div>
-        <p><a href="{{ short_url }}" target="_blank">{{ short_url }}</a></p>
+        <p class="link-box">
+          <a href="{{ short_url }}" target="_blank">{{ short_url }}</a>
+        </p>
       </div>
     {% endif %}
   </div>
+
+  <footer>
+    Кредиты: Фёдорыч Зюзин, Ласковая Рыба, Дмитрий-М13, чебурек_3000, заводной_медведь, © 2025  
+    Случайный_текст_здесь: пупырышки, ёжики, бугага, кыш-кыш  
+  </footer>
 </body>
 </html>
