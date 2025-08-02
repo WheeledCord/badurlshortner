@@ -9,7 +9,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///shady_urls.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-# Keyword sections
 top_keywords = [
     "facebook.com", "twitter.com", "nsa", "hijack", "gh424", "onclick", "ry5t",
     "leaked", "corpse", "Gh4k", "5GKdo1J", "56tb", "l4hf", "fpGMn1n", "KJHOy43",
@@ -31,7 +30,6 @@ bottom_keywords = [
     "tor", "virus", "trustme", "grab", "redirect", "xxx", "live-murder"
 ]
 
-# DB model
 class URLMap(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     slug = db.Column(db.String(255), unique=True, nullable=False)
@@ -48,7 +46,6 @@ def is_valid_url(url: str) -> bool:
 
 def generate_slug() -> str:
     start = random.choice(top_keywords)
-    # pick 2–5 middle keywords
     mids = random.sample(middle_keywords, k=random.randint(2, 5))
     end = random.choice(bottom_keywords)
     return "-".join([start, *mids, end])
@@ -62,9 +59,8 @@ def index():
         full = normalize_url(raw)
 
         if not is_valid_url(full):
-            error = "❌ That doesn’t look like a valid URL."
+            error = "WRONG URL gang"
         else:
-            # generate unique slug
             while True:
                 slug = generate_slug()
                 if not URLMap.query.filter_by(slug=slug).first():
@@ -85,7 +81,6 @@ def redirect_to_url(slug):
     return redirect(entry.original_url)
 
 if __name__ == "__main__":
-    # Ensure DB file exists and tables are created
     if not os.path.exists("shady_urls.db"):
         open("shady_urls.db", "w").close()
     with app.app_context():
